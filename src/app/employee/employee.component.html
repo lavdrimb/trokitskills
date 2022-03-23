@@ -1,0 +1,130 @@
+<mat-tab-group dynamicHeight>
+  <mat-tab label=" Basic Info ">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="form" [formGroup]="registerForm">
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Id</label>
+                                <input type="text" class="form-control" formControlName="id">
+                                <span class="text-danger"
+                                    *ngIf="(registerFormControl.id.touched || submitted) && registerFormControl.id.errors?.required">
+                                    Id is required
+                                </span>
+                            </div>                     
+                          </div>
+                          <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" formControlName="firstName">
+                            <span class="text-danger"
+                                *ngIf="(registerFormControl.firstName.touched || submitted) && registerFormControl.firstName.errors?.required">
+                                First Name is required
+                            </span>
+                            <span class="text-danger"
+                                *ngIf="registerFormControl.firstName.touched && registerFormControl.firstName.errors?.email">
+                                Enter a valid First Name 
+                            </span>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label>Title</label>
+                          <input type="text" class="form-control" formControlName="title">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl.title.touched || submitted) && registerFormControl.title.errors?.required">
+                              Title is required
+                          </span>
+                          <span class="text-danger"
+                              *ngIf="registerFormControl.title.touched && registerFormControl.title.errors?.email">
+                              Enter a valid Title 
+                          </span>
+                      </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label>Last Name</label>
+                          <input type="text" class="form-control" formControlName="lastName">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl.lastName.touched || submitted) && registerFormControl.lastName.errors?.required">
+                              Last Name is required
+                          </span>
+                          <span class="text-danger"
+                              *ngIf="registerFormControl.lastName.touched && registerFormControl.lastName.errors?.email">
+                              Enter a valid Last Name
+                          </span>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label> Date of Birth</label>
+                        <input type="text" class="form-control" formControlName="dateOfBirth">
+                        <span class="text-danger"
+                            *ngIf="(registerFormControl.dateOfBirth.touched || submitted) && registerFormControl.dateOfBirth.errors?.required">
+                            Date of Birth is required
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="registerFormControl.dateOfBirth.touched && registerFormControl.dateOfBirth.errors?.email">
+                            Enter a valid Date of Birth
+                        </span>
+                    </div>
+                    </div>
+                    <div class="row">
+                            <div class="form-group">
+                                <button   (click)="create()" class="btn btn-success">Create</button>
+                            </div> &nbsp;&nbsp;
+
+                            <div class="form-group">
+                              <button   (click)="edit()" class="btn btn-success">Edit</button>
+                          </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+  </mat-tab>
+  <mat-tab label="Projects">
+    <div class="card">
+      <table mat-table [dataSource]="projectsDataSource" class="mat-elevation-z8 demo-table">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>        
+
+        <tr mat-header-row *matHeaderRowDef="displayedProjectsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedProjectsColumns; let i='index'"></tr>
+         
+      </table>     
+    </div>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10]" showFirstLastButtons></mat-paginator>
+  </mat-tab>
+  
+</mat-tab-group>
+<hr/>
+
+<div class="card">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Id </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef> First Name. </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef> Last Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i='index'"
+   [ngClass]="{ highlight: selectedRow == row.id }" (click)="highlight(row,i)"></tr>
+</table>
+</div>
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10]" showFirstLastButtons></mat-paginator>

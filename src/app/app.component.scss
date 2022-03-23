@@ -1,0 +1,8 @@
+
+.mat-row:nth-child(odd) .mat-cell {
+    background-color: #eee;
+  }
+  
+  .mat-row.highlight .mat-cell {
+    background-color: #00a775;
+  }
